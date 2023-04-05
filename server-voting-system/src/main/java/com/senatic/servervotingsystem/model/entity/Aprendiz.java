@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
 public class Aprendiz {
     
     @Id
-    @Column(length = 10)
+    @Column(length = 25)
     private String id;
 
     @Column(length = 100)

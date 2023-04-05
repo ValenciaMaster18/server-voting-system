@@ -27,7 +27,7 @@ import lombok.ToString;
 public class Imagen {
 
     @Id
-    @Column(length = 10)
+    @Column(length = 25)
     private String id;
     @Lob
 	@Column(columnDefinition = "MEDIUMBLOB")

@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 
 
 CREATE TABLE `aprendices` (
-  `id` varchar(10) NOT NULL,
+  `id` varchar(25) NOT NULL,
   `apellido` varchar(100) DEFAULT NULL,
   `celular` varchar(15) DEFAULT NULL,
   `correoElectronico` varchar(250) DEFAULT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE `candidatos` (
 
 
 CREATE TABLE `imagenes` (
-  `id` varchar(10) NOT NULL,
+  `id` varchar(25) NOT NULL,
   `creationDateTime` datetime(6) DEFAULT NULL,
   `image` mediumblob,
   `lastModified` datetime(6) DEFAULT NULL
@@ -97,8 +97,8 @@ CREATE TABLE `usuarios` (
   `enabled` bit(1) DEFAULT b'1',
   `lastModified` datetime(6) DEFAULT NULL,
   `password` varchar(250) DEFAULT NULL,
-  `username` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `username` varchar(25) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`

@@ -1,5 +1,7 @@
 package com.senatic.servervotingsystem.boostrap;
 
+import java.util.Optional;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -19,10 +21,13 @@ public class bootstrapLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        //loadSampleUsers();
+        Optional<Usuario> adminOptional = usuariosService.findByUsername("S3n4AcMin0");
+        if(adminOptional.isEmpty()){
+            loadAdminUsers();
+        }
     }
 
-    void loadSampleUsers(){
+    void loadAdminUsers(){
         Usuario admin = Usuario.builder()
 
                 .username("S3n4AcMin0")

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 04-04-2023 a las 18:49:35
+-- Tiempo de generación: 05-04-2023 a las 15:03:54
 -- Versión del servidor: 8.0.32-0ubuntu0.22.04.2
 -- Versión de PHP: 8.1.2-1ubuntu2.11
 
@@ -25,16 +25,16 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `aprendices` (
   `id` varchar(10) NOT NULL,
-  `apellido` varchar(45) DEFAULT NULL,
-  `celular` varchar(10) DEFAULT NULL,
-  `correoElectronico` varchar(75) DEFAULT NULL,
+  `apellido` varchar(100) DEFAULT NULL,
+  `celular` varchar(15) DEFAULT NULL,
+  `correoElectronico` varchar(250) DEFAULT NULL,
   `creationDateTime` datetime(6) DEFAULT NULL,
   `estado` varchar(255) DEFAULT NULL,
-  `ficha` varchar(7) DEFAULT NULL,
+  `ficha` varchar(20) DEFAULT NULL,
   `lastModified` datetime(6) DEFAULT NULL,
-  `nombre` varchar(45) DEFAULT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
   `programa` varchar(250) DEFAULT NULL,
-  `tipoDocumento` varchar(2) DEFAULT NULL,
+  `tipoDocumento` varchar(10) DEFAULT NULL,
   `idUsuario` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -76,6 +76,13 @@ CREATE TABLE `Token` (
   `idUsuario` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `Token`
+--
+
+INSERT INTO `Token` (`id`, `expired`, `revoked`, `token`, `tokenType`, `idUsuario`) VALUES
+(1, b'0', b'0', 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJTM240QWNNaW4wIiwiaWF0IjoxNjgwNzIwMzY5LCJleHAiOjE2ODA3MjE4MDl9.uwf3NjM4mQ_-XkgEwcwVxrrHMQzJwxGS_qLQQAnMFx0', 'BEARER', 1);
+
 -- --------------------------------------------------------
 
 
@@ -92,6 +99,13 @@ CREATE TABLE `usuarios` (
   `password` varchar(250) DEFAULT NULL,
   `username` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `accountNonExpired`, `accountNonLocked`, `authority`, `creationDateTime`, `credentialsNonExpired`, `enabled`, `lastModified`, `password`, `username`) VALUES
+(1, b'1', b'1', 'ROLE_ADMINISTRADOR', '2023-04-05 13:46:09.057086', b'1', b'1', '2023-04-05 13:46:09.057697', '$2a$10$yI4cYkQMjzAq48lgjkNZKuk0cT24JmVW9O/avV3cA8MzIgR0Hy73G', 'S3n4AcMin0');
 
 -- --------------------------------------------------------
 
@@ -169,10 +183,10 @@ ALTER TABLE `candidatos`
 
 
 ALTER TABLE `Token`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 ALTER TABLE `usuarios`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 
 ALTER TABLE `votaciones`

@@ -20,8 +20,8 @@ SET time_zone = "+00:00";
 
 
 -- --------------------------------------------------------
-
-
+DROP DATABASE IF EXISTS voting_sys_db;
+CREATE DATABASE voting_sys_db;
 
 CREATE TABLE `aprendices` (
   `id` varchar(25) NOT NULL,
@@ -98,7 +98,7 @@ CREATE TABLE `usuarios` (
   `lastModified` datetime(6) DEFAULT NULL,
   `password` varchar(250) DEFAULT NULL,
   `username` varchar(25) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`

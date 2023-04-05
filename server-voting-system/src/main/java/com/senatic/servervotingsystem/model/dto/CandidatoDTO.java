@@ -16,11 +16,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonPropertyOrder({ "id","documento", "imagen", "idVotacion", "propuestas"})
 public class CandidatoDTO {
-
     private Integer id;
     @NotEmpty
     private String documento;
-    @NotEmpty
     private MultipartFile imagen;
     @NotEmpty
     @JsonAlias("votacion")

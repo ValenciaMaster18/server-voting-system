@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.senatic.servervotingsystem.controller.exceptionHandler.exception.EntityAlreadyOnStateException;
 import com.senatic.servervotingsystem.controller.exceptionHandler.exception.EntityNotFoundException;
@@ -94,7 +95,11 @@ public class CandidatosController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> handleCreateCandidato(@RequestBody CandidatoDTO candidatoDTO) throws EntityAlreadyOnStateException {
+    public ResponseEntity<HttpStatus> handleCreateCandidato(@RequestBody CandidatoDTO candidatoDTO, @RequestParam MultipartFile image) throws IllegalStateException, EntityAlreadyOnStateException {
+        if (image.isEmpty()) {
+            throw new IllegalStateException("IMAGE must not be empty");
+        }
+        candidatoDTO.setImagen(image);
         Candidato candidato = candidatoMapper.dtoToPojo(candidatoDTO);
         if (candidatosService.alreadyExistOnVotacion(candidato)) {
             throw new EntityAlreadyOnStateException("CANDIDATO already exist on VOTACION. Can not be added");

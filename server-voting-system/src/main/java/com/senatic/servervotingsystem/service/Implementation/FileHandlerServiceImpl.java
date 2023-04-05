@@ -1,6 +1,8 @@
 package com.senatic.servervotingsystem.service.Implementation;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,7 +20,6 @@ import com.senatic.servervotingsystem.model.dto.AprendizDTO;
 import com.senatic.servervotingsystem.service.FileHandlerService;
 
 import jakarta.xml.bind.DatatypeConverter;
-
 
 @Service
 public class FileHandlerServiceImpl implements FileHandlerService {
@@ -47,14 +48,17 @@ public class FileHandlerServiceImpl implements FileHandlerService {
                 if (fields.length == 9) {
                     String ficha = fields[0].trim().isEmpty() ? "NOT_PROVIDED" : fields[0].trim().replace("\"", "");
                     String programa = fields[1].trim().isEmpty() ? "NOT_PROVIDED" : fields[1].trim().replace("\"", "");
-                    String tipoDocumento = fields[2].trim().isEmpty() ? "NA" : fields[2].trim().toUpperCase().replace("\"", "");
+                    String tipoDocumento = fields[2].trim().isEmpty() ? "NA"
+                            : fields[2].trim().toUpperCase().replace("\"", "");
                     String numeroDocumento = fields[3].trim().isEmpty() ? "NA" : fields[3].trim().replace("\"", "");
                     String nombre = fields[4].trim().isEmpty() ? "NOT_PROVIDED" : fields[4].trim().replace("\"", "");
                     String apellido = fields[5].trim().isEmpty() ? "NOT_PROVIDED" : fields[5].trim().replace("\"", "");
                     String celular = fields[6].trim().isEmpty() ? "NA" : fields[6].trim().replace("\"", "");
-                    String correoElectronico = fields[7].trim().isEmpty() ? "NOT_PROVIDED" : fields[7].trim().replace("\"", "");
-                    String estado = fields[8].trim().isEmpty() ? "NOT_PROVIDED" : fields[8].trim().toUpperCase().replace("\"", "");
-                    
+                    String correoElectronico = fields[7].trim().isEmpty() ? "NOT_PROVIDED"
+                            : fields[7].trim().replace("\"", "");
+                    String estado = fields[8].trim().isEmpty() ? "NOT_PROVIDED"
+                            : fields[8].trim().toUpperCase().replace("\"", "");
+
                     AprendizDTO dto = AprendizDTO.builder()
                             .ficha(ficha)
                             .programa(programa)
@@ -68,9 +72,11 @@ public class FileHandlerServiceImpl implements FileHandlerService {
                             .build();
                     aprendicesDTO.add(dto);
                 } else {
-                    throw new FileNotValidException("CSV column length is not valid. Required: 9. Having: " + fields.length);
+                    throw new FileNotValidException(
+                            "CSV column length is not valid. Required: 9. Having: " + fields.length);
                 }
             }
+            is.close();
         } catch (IOException e) {
             ApiExceptionHandler.logger.error(e.getMessage());
         }
@@ -82,7 +88,7 @@ public class FileHandlerServiceImpl implements FileHandlerService {
         String base64 = "";
         try {
             base64 = Base64.getEncoder().encodeToString(dto.getBytes());
-        } catch ( IOException e) {
+        } catch (IOException e) {
             ApiExceptionHandler.logger.error(e.getMessage());
         }
         return base64;
@@ -93,6 +99,15 @@ public class FileHandlerServiceImpl implements FileHandlerService {
         byte[] data = DatatypeConverter.parseBase64Binary(pojo);
         MultipartFile file = new MockMultipartFile("file.jpg", data);
         return file;
+    }
+
+    @Override
+    public File convertMultiPartToFile(MultipartFile file) throws IOException {
+        File convFile = new File(file.getOriginalFilename());
+        FileOutputStream fos = new FileOutputStream(convFile);
+        fos.write(file.getBytes());
+        fos.close();
+        return convFile;
     }
 
 }

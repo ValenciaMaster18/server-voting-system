@@ -96,6 +96,7 @@ public class CandidatosController {
 
     @PostMapping
     public ResponseEntity<HttpStatus> handleCreateCandidato(@RequestBody CandidatoDTO candidatoDTO, @RequestParam MultipartFile image) throws IllegalStateException, EntityAlreadyOnStateException {
+        System.out.println("FILE UPLOAD: "+image.getOriginalFilename());
         if (image.isEmpty()) {
             throw new IllegalStateException("IMAGE must not be empty");
         }

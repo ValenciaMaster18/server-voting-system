@@ -26,9 +26,9 @@ public enum EstadoAprendiz {
     } 
 
     public static EstadoAprendiz checkAndAssign(String status){
-        EstadoAprendiz estadoAssigned = EstadoAprendiz.NOT_PROVIDED;
+        EstadoAprendiz estadoAssigned = EstadoAprendiz.EN_FORMACION;
         for ( EstadoAprendiz estado : EstadoAprendiz.values()) {
-            if (estado.plainText.equals(status)) {
+            if (estado.plainText.equalsIgnoreCase(status)) {
                 estadoAssigned = estado;
             }
         }

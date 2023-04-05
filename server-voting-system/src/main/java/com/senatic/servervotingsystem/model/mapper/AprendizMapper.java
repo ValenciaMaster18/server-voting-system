@@ -46,6 +46,7 @@ public class AprendizMapper implements GenericMapper<Aprendiz, AprendizDTO> {
         AprendizDTO aprendizDTO = AprendizDTO.builder()
                 .nombre(pojo.getNombre())
                 .apellido(pojo.getApellido())
+                .numeroDocumento(pojo.getId())
                 .tipoDocumento(pojo.getTipoDocumento().toString())
                 .celular(pojo.getCelular())
                 .correoElectronico(pojo.getCorreoElectronico())

@@ -1,7 +1,6 @@
 package com.senatic.servervotingsystem.model.mapper;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.senatic.servervotingsystem.model.dto.CandidatoDTO;
 import com.senatic.servervotingsystem.model.entity.Aprendiz;
@@ -18,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CandidatoMapper implements GenericMapper<Candidato, CandidatoDTO> {
 
-    private final ImagenMapper imagenMapper;
+    //private final ImagenMapper imagenMapper;
     private final AprendicesService aprendicesService;
     private final VotacionesService votacionesService;
 
@@ -26,8 +25,8 @@ public class CandidatoMapper implements GenericMapper<Candidato, CandidatoDTO> {
     public Candidato dtoToPojo(CandidatoDTO dto) {
         Aprendiz aprendiz = aprendicesService.findById(dto.getDocumento()).get();
         Votacion votacion = votacionesService.getVotacionById(dto.getIdVotacion()).get();
-        Imagen imagen = imagenMapper.dtoToPojo(dto.getImagen());
-        imagen.setId(dto.getDocumento()); //Id is missing in imagenMapper
+        Imagen imagen = Imagen.builder().id(dto.getDocumento()).image(dto.getImagen()).build();
+        //imagenMapper.dtoToPojo(dto.getImagen())
         Candidato candidato = Candidato.builder()
                 .aprendiz(aprendiz)
                 .imagen(imagen)
@@ -43,10 +42,10 @@ public class CandidatoMapper implements GenericMapper<Candidato, CandidatoDTO> {
 
     @Override
     public CandidatoDTO pojoToDto(Candidato pojo) {
-        MultipartFile multipartFile = imagenMapper.pojoToDto(pojo.getImagen());
+        //MultipartFile multipartFile = imagenMapper.pojoToDto(pojo.getImagen());
         CandidatoDTO candidatoDTO = CandidatoDTO.builder()
                 .documento(pojo.getAprendiz().getId())
-                .imagen(multipartFile)
+                .imagen(pojo.getImagen().getImage())
                 .idVotacion(pojo.getVotacion().getId())
                 .propuestas(pojo.getPropuestas())
                 .build();

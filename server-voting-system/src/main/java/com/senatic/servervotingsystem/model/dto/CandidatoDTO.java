@@ -1,6 +1,5 @@
 package com.senatic.servervotingsystem.model.dto;
 
-import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -19,7 +18,7 @@ public class CandidatoDTO {
     private Integer id;
     @NotEmpty
     private String documento;
-    private MultipartFile imagen;
+    private String imagen;
     @NotEmpty
     @JsonAlias("votacion")
     private Integer idVotacion;

@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonPropertyOrder({"documento", "imagen", "idVotacion", "propuestas"})
+@JsonPropertyOrder({ "id","documento", "imagen", "idVotacion", "propuestas"})
 public class CandidatoDTO {
 
     private Integer id;

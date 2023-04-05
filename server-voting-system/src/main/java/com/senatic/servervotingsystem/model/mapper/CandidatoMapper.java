@@ -1,7 +1,10 @@
 package com.senatic.servervotingsystem.model.mapper;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
+import com.senatic.servervotingsystem.controller.exceptionHandler.exception.EntityNotFoundException;
 import com.senatic.servervotingsystem.model.dto.CandidatoDTO;
 import com.senatic.servervotingsystem.model.entity.Aprendiz;
 import com.senatic.servervotingsystem.model.entity.Candidato;
@@ -9,6 +12,7 @@ import com.senatic.servervotingsystem.model.entity.Imagen;
 import com.senatic.servervotingsystem.model.entity.Votacion;
 import com.senatic.servervotingsystem.model.entity.enums.EstadoCandidato;
 import com.senatic.servervotingsystem.service.AprendicesService;
+import com.senatic.servervotingsystem.service.ImagenesService;
 import com.senatic.servervotingsystem.service.VotacionesService;
 
 import lombok.RequiredArgsConstructor;
@@ -17,16 +21,26 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CandidatoMapper implements GenericMapper<Candidato, CandidatoDTO> {
 
-    //private final ImagenMapper imagenMapper;
     private final AprendicesService aprendicesService;
+    private final ImagenesService imagenesService;
     private final VotacionesService votacionesService;
 
     @Override
     public Candidato dtoToPojo(CandidatoDTO dto) {
         Aprendiz aprendiz = aprendicesService.findById(dto.getDocumento()).get();
         Votacion votacion = votacionesService.getVotacionById(dto.getIdVotacion()).get();
-        Imagen imagen = Imagen.builder().id(dto.getDocumento()).image(dto.getImagen()).build();
-        //imagenMapper.dtoToPojo(dto.getImagen())
+        Imagen imagen = Imagen.builder().build();
+        if (dto.getImagen() == null) {
+            Optional<Imagen> optionalImagen = imagenesService.getImagenById(dto.getDocumento());
+            if (optionalImagen.isPresent()) {
+                imagen = optionalImagen.get();
+            } else {
+                throw new EntityNotFoundException("IMAGE not found");
+            }
+        } else {
+            imagen.setId(dto.getDocumento());
+            imagen.setImage(dto.getImagen());
+        }
         Candidato candidato = Candidato.builder()
                 .aprendiz(aprendiz)
                 .imagen(imagen)

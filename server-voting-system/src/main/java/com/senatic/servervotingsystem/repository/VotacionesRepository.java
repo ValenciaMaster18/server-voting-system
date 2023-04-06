@@ -13,11 +13,11 @@ import com.senatic.servervotingsystem.model.entity.Votacion;
 public interface VotacionesRepository extends JpaRepository<Votacion, Integer> {
     
     @Modifying
-    @Query(value="UPDATE votaciones c SET c.estado = 'CERRADA' WHERE c.id= :idVotacion" , nativeQuery = true)
+    @Query(value="UPDATE votaciones c SET c.estado = 'INHABILITADA' WHERE c.id= :idVotacion" , nativeQuery = true)
     void disableVotacionById(Integer idVotacion);
     
     @Modifying
-    @Query(value="UPDATE votaciones c SET c.estado = 'ABIERTA' WHERE c.id= :idVotacion" , nativeQuery = true)
+    @Query(value="UPDATE votaciones c SET c.estado = 'HABILITADA' WHERE c.id= :idVotacion" , nativeQuery = true)
     void enableVotacionById(Integer idVotacion);
 
     @Modifying

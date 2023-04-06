@@ -20,13 +20,11 @@ public class VotosController {
     private final VotosService votosService;
 
     @PostMapping("/vote-by/{idCandidato}")
-    public ResponseEntity<HttpStatus> saveVoto(@PathVariable("idCandidato") Integer idCandidato, Authentication authentication) {
-        if (!(authentication.getName().equalsIgnoreCase("anonymous"))) {
-            String idAprendiz = authentication.getName();
-            votosService.registerVote(idCandidato, idAprendiz);
-            return ResponseEntity.status(HttpStatus.OK).build();
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    public ResponseEntity<HttpStatus> saveVoto(@PathVariable("idCandidato") Integer idCandidato,
+            Authentication authentication) {
+        String idAprendiz = authentication.getName();
+        votosService.registerVote(idCandidato, idAprendiz);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }

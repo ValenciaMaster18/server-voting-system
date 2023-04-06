@@ -42,6 +42,7 @@ public class CandidatoMapper implements GenericMapper<Candidato, CandidatoDTO> {
     @Override
     public CandidatoDTO pojoToDto(Candidato pojo) {
         CandidatoDTO candidatoDTO = CandidatoDTO.builder()
+                .id(pojo.getId())
                 .documento(pojo.getAprendiz().getId())
                 .imagen(pojo.getImagen().getImage())
                 .idVotacion(pojo.getVotacion().getId())

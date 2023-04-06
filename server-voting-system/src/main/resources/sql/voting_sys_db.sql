@@ -80,8 +80,8 @@ CREATE TABLE `Token` (
 -- Volcado de datos para la tabla `Token`
 --
 
-INSERT INTO `Token` (`id`, `expired`, `revoked`, `token`, `tokenType`, `idUsuario`) VALUES
-(1, b'0', b'0', 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJTM240QWNNaW4wIiwiaWF0IjoxNjgwNzIwMzY5LCJleHAiOjE2ODA3MjE4MDl9.uwf3NjM4mQ_-XkgEwcwVxrrHMQzJwxGS_qLQQAnMFx0', 'BEARER', 1);
+-- INSERT INTO `Token` (`id`, `expired`, `revoked`, `token`, `tokenType`, `idUsuario`) VALUES
+-- (1, b'0', b'0', 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJTM240QWNNaW4wIiwiaWF0IjoxNjgwNzIwMzY5LCJleHAiOjE2ODA3MjE4MDl9.uwf3NjM4mQ_-XkgEwcwVxrrHMQzJwxGS_qLQQAnMFx0', 'BEARER', 1);
 
 -- --------------------------------------------------------
 
@@ -104,8 +104,8 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `accountNonExpired`, `accountNonLocked`, `authority`, `creationDateTime`, `credentialsNonExpired`, `enabled`, `lastModified`, `password`, `username`) VALUES
-(1, b'1', b'1', 'ROLE_ADMINISTRADOR', '2023-04-05 13:46:09.057086', b'1', b'1', '2023-04-05 13:46:09.057697', '$2a$10$yI4cYkQMjzAq48lgjkNZKuk0cT24JmVW9O/avV3cA8MzIgR0Hy73G', 'S3n4AcMin0');
+-- INSERT INTO `usuarios` (`id`, `accountNonExpired`, `accountNonLocked`, `authority`, `creationDateTime`, `credentialsNonExpired`, `enabled`, `lastModified`, `password`, `username`) VALUES
+-- (1, b'1', b'1', 'ROLE_ADMINISTRADOR', '2023-04-05 13:46:09.057086', b'1', b'1', '2023-04-05 13:46:09.057697', '$2a$10$yI4cYkQMjzAq48lgjkNZKuk0cT24JmVW9O/avV3cA8MzIgR0Hy73G', 'S3n4AcMin0');
 
 -- --------------------------------------------------------
 

@@ -2,7 +2,6 @@ package com.senatic.servervotingsystem.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +21,7 @@ public class VotosController {
 
     @PostMapping("/vote-by/{idCandidato}")
     public ResponseEntity<HttpStatus> saveVoto(@PathVariable("idCandidato") Integer idCandidato, Authentication authentication) {
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+        if (!(authentication.getName().equalsIgnoreCase("anonymous"))) {
             String idAprendiz = authentication.getName();
             votosService.registerVote(idCandidato, idAprendiz);
             return ResponseEntity.status(HttpStatus.OK).build();

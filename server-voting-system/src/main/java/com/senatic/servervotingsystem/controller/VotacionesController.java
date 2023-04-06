@@ -75,7 +75,7 @@ public class VotacionesController {
         return ResponseEntity.status(HttpStatus.OK).body(votacionesDTO);
     }
 
-    @PutMapping
+    @PutMapping("current/{id}")
     public ResponseEntity<HttpStatus> handleSetCurrentVotacion(@PathVariable Integer id)
             throws EntityNotFoundException {
         if (!votacionesService.alreadyExist(id)) {

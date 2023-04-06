@@ -23,7 +23,6 @@ public class VotosController {
     public ResponseEntity<HttpStatus> saveVoto(@PathVariable("idCandidato") Integer idCandidato,
             Authentication authentication) {
         String idAprendiz = authentication.getName();
-        System.out.println("ID APRENDIZ: " + idAprendiz);
         votosService.registerVote(idCandidato, idAprendiz);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

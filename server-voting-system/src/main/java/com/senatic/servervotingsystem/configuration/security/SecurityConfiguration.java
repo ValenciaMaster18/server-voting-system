@@ -46,7 +46,7 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .addFilterBefore(jwtAuthenticationFilter, BasicAuthenticationFilter.class)
                 .authorizeHttpRequests()
-                .requestMatchers("api/v1/candidatos/current-votacion", "api/v1/votos/vote-by**").hasRole("APRENDIZ")
+                .requestMatchers("api/v1/candidatos/current-votacion", "api/v1/votos/vote-by/**").hasRole("APRENDIZ")
                 .requestMatchers("api/v1/aprendices/**", "api/v1/candidatos/**", "api/v1/votaciones/**")
                 .hasRole("ADMINISTRADOR")
                 .requestMatchers("api/v1/auth**", "/doc/swagger**").permitAll()

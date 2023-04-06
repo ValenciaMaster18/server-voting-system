@@ -50,12 +50,17 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
         Optional<Votacion> currentVotacion = votacionesService.getCurrentVotacion();
 
         if (user.isEnabled()) {
+
           if (user.getAuthorities().toString().contains("ROLE_ADMINISTRADOR")) {
+
             return new UsernamePasswordAuthenticationToken(username, password, authorities);
+
           } else if (!votosService.hasAlreadyVote(username, currentVotacion.get().getId())
               && currentVotacion.isPresent()
               && user.getAuthorities().toString().contains("ROLE_APRENDIZ")) {
+
             return new UsernamePasswordAuthenticationToken(username, password, authorities);
+            
           } else {
             throw new UsernameNotFoundException("Not votacion avaliable");
           }

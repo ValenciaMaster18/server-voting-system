@@ -43,7 +43,7 @@ public class Candidato {
     @JoinColumn(name = "idAprendiz")
     private Aprendiz aprendiz;
 
-    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+    @OneToOne(cascade=CascadeType.REMOVE, orphanRemoval = true)
     @JoinColumn(name="idImagen")
     private Imagen imagen;
 

@@ -63,6 +63,9 @@ public class VotacionesServiceImpl implements VotacionesService {
 
     @Override
     public void disableVotacionById(Integer idVotacion) {
+        if(isThisCurrentVotacion(idVotacion)){
+            setNotCurrentVotacion(idVotacion);
+        }
         votacionesRepository.disableVotacionById(idVotacion);
     }
 
@@ -119,6 +122,22 @@ public class VotacionesServiceImpl implements VotacionesService {
     @Override
     public Boolean isAnyCurrentSelected() {
         return votacionesRepository.findByCurrentVotacion(true).isPresent();
+    }
+
+    @Override
+    public Boolean isThisCurrentVotacion(Integer idVotacion) {
+        Optional<Votacion> optional = votacionesRepository.findByCurrentVotacion(true);
+        if (optional.isPresent()) {
+            return optional.get().getId() == idVotacion;
+        }
+        return false;
+    }
+
+    @Override
+    public void setNotCurrentVotacion(Integer idVotacion) {
+        if (isThisCurrentVotacion(idVotacion)) {
+            votacionesRepository.setNotCurrentById(idVotacion);
+        }
     }
 
 }

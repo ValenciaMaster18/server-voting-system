@@ -28,5 +28,7 @@ public interface VotacionesService {
     Boolean isDisabled(Integer idVotacion);
     Optional<Votacion> getCurrentVotacion();
     void setCurrentVotacion(Integer idVotacion);
+    void setNotCurrentVotacion(Integer idVotacion);
     Boolean isAnyCurrentSelected();
+    Boolean isThisCurrentVotacion(Integer idVotacion);
 }

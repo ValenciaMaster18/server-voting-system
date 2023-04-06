@@ -76,7 +76,7 @@ public class VotacionesController {
     }
 
     @PutMapping("current/{id}")
-    public ResponseEntity<HttpStatus> handleSetCurrentVotacion(@PathVariable Integer id)
+    public ResponseEntity<VotacionDTO> handleSetCurrentVotacion(@PathVariable Integer id)
             throws EntityNotFoundException {
         if (!votacionesService.alreadyExist(id)) {
             throw new EntityNotFoundException("VOTACION not found. Can not be setted current");
@@ -85,7 +85,8 @@ public class VotacionesController {
             throw new IllegalStateException("VOTACION is not enabled. Can not be current");
         }
         votacionesService.setCurrentVotacion(id);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        VotacionDTO votacionDTO = votacionMapper.pojoToDto(votacionesService.getCurrentVotacion().get());
+        return ResponseEntity.status(HttpStatus.OK).body(votacionDTO);
     }
 
     @PutMapping

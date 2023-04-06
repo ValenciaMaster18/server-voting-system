@@ -83,5 +83,10 @@ public class AprendicesServiceImpl implements AprendicesService{
     public Boolean alreadyExist(String idAprendiz) {
         return aprendicesRepository.existsById(idAprendiz);
     }
+
+    @Override
+    public void deleteById(String id) {
+        aprendicesRepository.deleteById(id);
+    }
     
 }

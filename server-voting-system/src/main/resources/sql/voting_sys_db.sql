@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 05-04-2023 a las 15:03:54
+-- Tiempo de generación: 06-04-2023 a las 13:49:22
 -- Versión del servidor: 8.0.32-0ubuntu0.22.04.2
 -- Versión de PHP: 8.1.2-1ubuntu2.11
 
@@ -47,8 +47,8 @@ CREATE TABLE `candidatos` (
   `estado` varchar(255) DEFAULT NULL,
   `lastModified` datetime(6) DEFAULT NULL,
   `propuestas` varchar(250) DEFAULT NULL,
-  `idAprendiz` varchar(10) DEFAULT NULL,
-  `idImagen` varchar(10) DEFAULT NULL,
+  `idAprendiz` varchar(25) DEFAULT NULL,
+  `idImagen` varchar(25) DEFAULT NULL,
   `idVotacion` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -74,7 +74,7 @@ CREATE TABLE `Token` (
   `token` varchar(255) DEFAULT NULL,
   `tokenType` varchar(255) DEFAULT NULL,
   `idUsuario` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `Token`
@@ -98,7 +98,7 @@ CREATE TABLE `usuarios` (
   `lastModified` datetime(6) DEFAULT NULL,
   `password` varchar(250) DEFAULT NULL,
   `username` varchar(25) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
@@ -129,7 +129,7 @@ CREATE TABLE `votos` (
   `id` int NOT NULL,
   `fechaRegistro` datetime(6) DEFAULT NULL,
   `valido` bit(1) DEFAULT NULL,
-  `idAprendiz` varchar(10) DEFAULT NULL,
+  `idAprendiz` varchar(25) DEFAULT NULL,
   `idCandidato` int DEFAULT NULL,
   `idVotacion` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

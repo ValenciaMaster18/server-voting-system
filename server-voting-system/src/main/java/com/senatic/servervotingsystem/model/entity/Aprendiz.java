@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import com.senatic.servervotingsystem.model.entity.enums.EstadoAprendiz;
 import com.senatic.servervotingsystem.model.entity.enums.TipoDocumento;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -44,7 +45,7 @@ public class Aprendiz {
     @Enumerated(EnumType.STRING)
     private TipoDocumento tipoDocumento;
 
-    @OneToOne
+    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     @JoinColumn(name="idUsuario")
     private Usuario usuario;
 

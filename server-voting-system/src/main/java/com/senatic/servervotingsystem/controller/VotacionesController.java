@@ -76,6 +76,19 @@ public class VotacionesController {
     }
 
     @PutMapping
+    public ResponseEntity<HttpStatus> handleSetCurrentVotacion(@PathVariable Integer id)
+            throws EntityNotFoundException {
+        if (!votacionesService.alreadyExist(id)) {
+            throw new EntityNotFoundException("VOTACION not found. Can not be setted current");
+        }
+        if (votacionesService.isDisabled(id)) {
+            throw new IllegalStateException("VOTACION is not enabled. Can not be current");
+        }
+        votacionesService.setCurrentVotacion(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PutMapping
     public ResponseEntity<HttpStatus> handleUpdateVotacion(@RequestBody VotacionDTO votacionDTO)
             throws EntityNotFoundException {
         if (!votacionesService.alreadyExist(votacionDTO)) {
@@ -83,11 +96,11 @@ public class VotacionesController {
         }
         Votacion votacion = votacionMapper.dtoToPojo(votacionDTO);
         votacionesService.addVotacion(votacion);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> handleCreateVotacion(@PathVariable("id") Integer idVotacion)
+    public ResponseEntity<HttpStatus> handleDeleteVotacion(@PathVariable("id") Integer idVotacion)
             throws EntityNotFoundException {
         if (!votacionesService.alreadyExist(idVotacion)) {
             throw new EntityNotFoundException("VOTACION not found. Can not be deleted");

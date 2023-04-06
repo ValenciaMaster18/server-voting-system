@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -103,6 +104,16 @@ public class CandidatosController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> handleDeleteCandidatoById(
+            @PathVariable Integer id) throws EntityNotFoundException {
+        if (!candidatosService.alreadyExist(id)) {
+            throw new EntityNotFoundException("CANDIDATO not found. Can not be deleted");
+        }
+        candidatosService.deleteCandidatoById(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
     @PutMapping
     public ResponseEntity<HttpStatus> handleUpdateCandidato(
             @RequestBody CandidatoDTO candidatoDTO) throws EntityNotFoundException {
@@ -111,7 +122,7 @@ public class CandidatosController {
         }
         Candidato candidato = candidatoMapper.dtoToPojo(candidatoDTO);
         candidatosService.addCandidato(candidato);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PatchMapping("/enable/{id}")

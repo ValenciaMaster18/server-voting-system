@@ -22,4 +22,5 @@ public interface AprendicesService {
 	Integer countAprendicesByEstado(EstadoAprendiz estado);
 	Boolean alreadyExist(AprendizDTO aprendizDTO);
 	Boolean alreadyExist(String idAprendiz);
+    void deleteById(String id);
 }

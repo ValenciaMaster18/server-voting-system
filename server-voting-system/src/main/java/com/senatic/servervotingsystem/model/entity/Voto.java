@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,13 +29,13 @@ public class Voto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToOne
+    @ManyToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name="idCandidato")
     private Candidato candidato;
-    @ManyToOne
+    @ManyToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name="idAprendiz")
     private Aprendiz aprendiz;
-    @ManyToOne
+    @ManyToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name="idVotacion")
     private Votacion votacion;
     @CreationTimestamp

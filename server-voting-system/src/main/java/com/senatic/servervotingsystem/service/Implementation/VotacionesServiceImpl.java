@@ -107,9 +107,11 @@ public class VotacionesServiceImpl implements VotacionesService {
 
     @Override
     public void setCurrentVotacion(Integer idVotacion) {
-        Optional<Votacion> currentOptional = votacionesRepository.findByCurrentVotacion(true);
-        if (currentOptional.isPresent()) {
-            votacionesRepository.setNotCurrentById(currentOptional.get().getId());
+        if (isAnyCurrentSelected()) {
+            Optional<Votacion> currentOptional = votacionesRepository.findByCurrentVotacion(true);
+            if (currentOptional.isPresent()) {
+                votacionesRepository.setNotCurrentById(currentOptional.get().getId());
+            }
         }
         votacionesRepository.setCurrentById(idVotacion);
     }

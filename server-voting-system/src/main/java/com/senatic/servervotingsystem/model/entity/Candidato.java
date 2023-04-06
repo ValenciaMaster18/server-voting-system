@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.senatic.servervotingsystem.model.entity.enums.EstadoCandidato;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -38,15 +39,15 @@ public class Candidato {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @OneToOne
+    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     @JoinColumn(name = "idAprendiz")
     private Aprendiz aprendiz;
 
-    @OneToOne
+    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name="idImagen")
     private Imagen imagen;
 
-    @OneToOne
+    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     @JoinColumn(name="idVotacion")
     private Votacion votacion;
 

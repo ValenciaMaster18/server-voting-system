@@ -52,7 +52,7 @@ public class SecurityConfiguration {
                 .requestMatchers("api/v1/auth**", "/doc/swagger**").permitAll()
                 .and()
                 .logout()
-                .logoutUrl("/api/v1/auth/logout")
+                .logoutUrl("/api/v1/auth/logout").permitAll()
                 .addLogoutHandler(logoutHandler)
                 .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext());
 

@@ -13,4 +13,5 @@ public interface VotosService {
     List<Voto> getByVotacionAndCandidato(Votacion votacion, Candidato candidato);
     void registerVote(Voto voto);
     void registerVote(Integer idCandidato, String idAprendiz);
+    Boolean hasAlreadyVote(String authority);
 }

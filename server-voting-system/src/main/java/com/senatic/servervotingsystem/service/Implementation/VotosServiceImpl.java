@@ -68,4 +68,10 @@ public class VotosServiceImpl implements VotosService {
         votosRepository.save(voto);
     }
 
+    @Override
+    public Boolean hasAlreadyVote(String authority) {
+        Votacion votacion = votacionesService.getCurrentVotacion().get();
+        return hasAlreadyVote(authority, votacion.getId());
+    }
+
 }

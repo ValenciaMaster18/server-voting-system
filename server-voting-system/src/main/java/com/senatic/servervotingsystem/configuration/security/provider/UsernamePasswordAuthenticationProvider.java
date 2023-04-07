@@ -58,7 +58,7 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
           } else if (!votosService.hasAlreadyVote(username, currentVotacion.get().getId())
               && currentVotacion.isPresent()
               && user.getAuthorities().toString().contains("ROLE_APRENDIZ")) {
-
+            System.out.println("Aprendiz que ingresa a votar: " + user.toString()); 
             return new UsernamePasswordAuthenticationToken(username, password, authorities);
             
           } else {

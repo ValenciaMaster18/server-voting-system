@@ -97,11 +97,11 @@ public class VotacionesController {
         }
         Votacion votacion = votacionMapper.dtoToPojo(votacionDTO);
         votacionesService.addVotacion(votacion);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> handleDeleteVotacion(@PathVariable("id") Integer idVotacion)
+    public ResponseEntity<HttpStatus> handleCreateVotacion(@PathVariable("id") Integer idVotacion)
             throws EntityNotFoundException {
         if (!votacionesService.alreadyExist(idVotacion)) {
             throw new EntityNotFoundException("VOTACION not found. Can not be deleted");

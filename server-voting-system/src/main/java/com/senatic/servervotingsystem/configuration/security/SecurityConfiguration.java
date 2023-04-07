@@ -15,7 +15,6 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
-import com.senatic.servervotingsystem.configuration.security.filter.AprendizHasAlreadyVoteFilter;
 import com.senatic.servervotingsystem.configuration.security.filter.JwtAuthenticationFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +24,6 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfiguration {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final AprendizHasAlreadyVoteFilter hasAlreadyVoteFilter;
     private final LogoutHandler logoutHandler;
 
     @Bean
@@ -47,7 +45,6 @@ public class SecurityConfiguration {
                 .and()
                 .csrf().disable()
                 .addFilterBefore(jwtAuthenticationFilter, BasicAuthenticationFilter.class)
-                .addFilterAfter(hasAlreadyVoteFilter, JwtAuthenticationFilter.class)
                 .authorizeHttpRequests()
                 .requestMatchers("api/v1/candidatos/current-votacion", "api/v1/votos/vote-by/**").hasRole("APRENDIZ")
                 .requestMatchers("api/v1/aprendices/**", "api/v1/candidatos/**", "api/v1/votaciones/**")

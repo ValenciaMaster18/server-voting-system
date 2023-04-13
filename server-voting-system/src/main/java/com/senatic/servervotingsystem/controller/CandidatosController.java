@@ -2,6 +2,7 @@ package com.senatic.servervotingsystem.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.data.domain.Example;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -69,13 +71,15 @@ public class CandidatosController {
         if (currentOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        List<Candidato> candidatos = candidatosService.getCandidatosByVotacionAndEstado(currentOptional.get().getId() , EstadoCandidato.HABILITADO);
+        List<Candidato> candidatos = candidatosService.getCandidatosByVotacionAndEstado(currentOptional.get().getId(),
+                EstadoCandidato.HABILITADO);
         if (candidatos.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         List<CandidatoDTO> candidatosDTO = candidatos.stream().map(candidatoMapper::pojoToDto).toList();
-        
-        return ResponseEntity.status(HttpStatus.OK).body(candidatosDTO);
+
+        return ResponseEntity.status(HttpStatus.OK).cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS))
+                .body(candidatosDTO);
     }
 
     @GetMapping("/search")
@@ -95,7 +99,8 @@ public class CandidatosController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> handleCreateCandidato(@RequestBody CandidatoDTO candidatoDTO) throws EntityAlreadyOnStateException {
+    public ResponseEntity<HttpStatus> handleCreateCandidato(@RequestBody CandidatoDTO candidatoDTO)
+            throws EntityAlreadyOnStateException {
         Candidato candidato = candidatoMapper.dtoToPojo(candidatoDTO);
         if (candidatosService.alreadyExistOnVotacion(candidato)) {
             throw new EntityAlreadyOnStateException("CANDIDATO already exist on VOTACION. Can not be added");
@@ -126,23 +131,25 @@ public class CandidatosController {
     }
 
     @PatchMapping("/enable/{id}")
-    public ResponseEntity<HttpStatus> enableCandidatoById(@PathVariable("id") Integer idCandidato) throws EntityNotFoundException, EntityAlreadyOnStateException {
+    public ResponseEntity<HttpStatus> enableCandidatoById(@PathVariable("id") Integer idCandidato)
+            throws EntityNotFoundException, EntityAlreadyOnStateException {
         if (!candidatosService.alreadyExist(idCandidato)) {
             throw new EntityNotFoundException("CANDIDATO not found. Can not be enabled");
-        } else if(candidatosService.alreadyEnabled(idCandidato)){
+        } else if (candidatosService.alreadyEnabled(idCandidato)) {
             throw new EntityAlreadyOnStateException("CANDIDATO already enabled. Do not request enable");
-        } 
+        }
         candidatosService.enableCandidatoById(idCandidato);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PatchMapping("/disable/{id}")
-    public ResponseEntity<HttpStatus> disableCandidatoById(@PathVariable("id") Integer idCandidato) throws EntityNotFoundException, EntityAlreadyOnStateException {
+    public ResponseEntity<HttpStatus> disableCandidatoById(@PathVariable("id") Integer idCandidato)
+            throws EntityNotFoundException, EntityAlreadyOnStateException {
         if (!candidatosService.alreadyExist(idCandidato)) {
             throw new EntityNotFoundException("CANDIDATO not found. Can not be disabled");
-        } else if(candidatosService.alreadyDisabled(idCandidato)){
+        } else if (candidatosService.alreadyDisabled(idCandidato)) {
             throw new EntityAlreadyOnStateException("CANDIDATO already disabled. Do not request disable");
-        } 
+        }
         candidatosService.disableCandidatoById(idCandidato);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

@@ -74,4 +74,9 @@ public class VotosServiceImpl implements VotosService {
         return hasAlreadyVote(authority, votacion.getId());
     }
 
+    @Override
+    public Boolean hasAlreadyVote(Aprendiz aprendiz, Votacion votacion) {
+        return votosRepository.findByAprendizAndVotacion(aprendiz, votacion).isPresent();
+    }
+
 }

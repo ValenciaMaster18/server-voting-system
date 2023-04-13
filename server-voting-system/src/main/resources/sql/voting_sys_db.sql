@@ -171,6 +171,7 @@ ALTER TABLE `votaciones`
 
 ALTER TABLE `votos`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `votos_unique` (`idVotacion`,`idAprendiz`),
   ADD KEY `FKtm7xkwlfqc7lt0075yqf3j4b` (`idAprendiz`),
   ADD KEY `FKci82tovc2snpas4ov101m4ve1` (`idCandidato`);
 
